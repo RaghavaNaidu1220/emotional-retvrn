@@ -1,7 +1,7 @@
 class AppConfig {
   // Supabase Configuration
-  static const String supabaseUrl = 'https://dqhsbihxysuhnkrdzpzu.supabase.co';
-  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxaHNiaWh4eXN1aG5rcmR6cHp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5OTQxNDAsImV4cCI6MjA2MzU3MDE0MH0.elLaRGF33l_SwvMvSIxLNNSW8hj7xCcoG-caDEBNAfA';
+  static const String supabaseUrl = 'https://veclnhbatnkfzwscynag.supabase.co';
+  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlY2xuaGJhdG5rZnp3c2N5bmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgwNTMxMDIsImV4cCI6MjA2MzYyOTEwMn0.39BsRkotRPFovaMVxaahnv_nIRxVj9HwwD3E-X3EtRA';
   
   // OpenAI Configuration
   static const String openAIApiKey = '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';

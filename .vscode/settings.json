@@ -1,3 +1,8 @@
 {
-    "cmake.sourceDirectory": "C:/Users/Ragha/emotional_spiral_app/linux"
+    "cmake.sourceDirectory": "C:/Users/Ragha/emotional_spiral_app/linux",
+    "search.useGlobalIgnoreFiles": true,
+    "search.useParentIgnoreFiles": true,
+    "files.exclude": {
+        "": true
+    }
 }
