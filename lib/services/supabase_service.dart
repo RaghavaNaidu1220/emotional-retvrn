@@ -37,10 +37,20 @@ class SupabaseService {
         password: password,
       );
       
+      // Check for user already exists error
+      if (response.user == null) {
+        throw Exception('Sign up failed. Please try again.');
+      }
+      
       debugPrint('Sign up successful for user: ${response.user?.email}');
       return response;
     } catch (e) {
       debugPrint('Email sign-up error: $e');
+      // Better error handling for common Supabase errors
+      if (e.toString().contains('User already registered') || 
+          e.toString().contains('already been registered')) {
+        throw Exception('User already registered with this email');
+      }
       rethrow;
     }
   }

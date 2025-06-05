@@ -12,6 +12,7 @@ import 'providers/theme_provider.dart';
 import 'screens/splash/splash_screen.dart';
 import 'screens/landing/landing_screen.dart';
 import 'screens/dashboard/home_screen.dart';
+import 'screens/profile/profile_setup_screen.dart';
 import 'services/whisper_service.dart';
 import 'services/openai_service.dart';
 
@@ -35,7 +36,7 @@ void main() async {
   
   // Initialize services
   WhisperService().initialize();
-  OpenAIService().initialize(); // This will now work
+  OpenAIService().initialize();
   
   runApp(const MyApp());
 }
@@ -75,6 +76,8 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, child) {
+        print('🔍 AuthWrapper: isLoading=${authProvider.isLoading}, user=${authProvider.user?.email}, isFirstTime=${authProvider.isFirstTime}');
+        
         if (authProvider.isLoading) {
           return const SplashScreen();
         }
@@ -83,6 +86,13 @@ class AuthWrapper extends StatelessWidget {
           return const LandingScreen();
         }
         
+        // User is authenticated, check if profile setup is needed
+        if (authProvider.isFirstTime) {
+          print('🔄 AuthWrapper: Redirecting to profile setup');
+          return const ProfileSetupScreen();
+        }
+        
+        print('🏠 AuthWrapper: Redirecting to home');
         return const HomeScreen();
       },
     );

@@ -64,4 +64,12 @@ class UserModel {
       updatedAt: DateTime.now(),
     );
   }
+  
+  // Helper method to check if profile is complete
+  bool get isProfileComplete {
+    return age != null && spiralStage != 'beige';
+  }
 }
+
+// Alias for backward compatibility
+typedef UserProfile = UserModel;

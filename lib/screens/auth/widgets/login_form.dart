@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:html' as html;
 import '../../../providers/auth_provider.dart';
-import '../../dashboard/home_screen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -15,6 +15,7 @@ class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _showSuccess = false;
 
   @override
   void dispose() {
@@ -34,10 +35,15 @@ class _LoginFormState extends State<LoginForm> {
     );
 
     if (success && mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
-    } else if (mounted) {
+      // Show success message and refresh
+      setState(() {
+        _showSuccess = true;
+      });
+      
+      // Wait a moment to show the success message, then refresh
+      await Future.delayed(const Duration(milliseconds: 1000));
+      html.window.location.reload();
+    } else if (!success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(authProvider.errorMessage ?? 'Sign in failed'),
@@ -51,6 +57,38 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, child) {
+        if (_showSuccess) {
+          return const Padding(
+            padding: EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 64,
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Sign in successful!',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Redirecting you to the app...',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 24),
+                CircularProgressIndicator(),
+              ],
+            ),
+          );
+        }
+
         return Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(

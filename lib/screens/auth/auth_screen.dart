@@ -14,8 +14,21 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   bool _isLogin = true;
 
+  void _toggleAuthMode() {
+    setState(() {
+      _isLogin = !_isLogin;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Check if user is already authenticated
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    if (authProvider.isAuthenticated) {
+      // Let the AuthWrapper handle navigation
+      return Container(); // This will be replaced by AuthWrapper
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -90,9 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
               // Toggle between login and register
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    _isLogin = !_isLogin;
-                  });
+                  _toggleAuthMode();
                 },
                 child: Text(
                   _isLogin 
@@ -143,5 +154,6 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       );
     }
+    // No need to navigate manually - let the AuthWrapper handle it
   }
 }
